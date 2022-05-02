@@ -21,8 +21,8 @@ public class LocationHelper extends AppCompatActivity {
 
 
     @SuppressLint("StaticFieldLeak")
-    private static Context context;
-    private static double latitude,longitude;
+    public static Context context;
+    public static double latitude,longitude;
 
     public static double getLatitude() {
         return latitude;
@@ -56,7 +56,7 @@ public class LocationHelper extends AppCompatActivity {
         return knownName;
     }
 
-    private static String address,city,state,country,postalCode,knownName;
+    public static String address,city,state,country,postalCode,knownName;
 
     public LocationHelper(Context context) {
         LocationHelper.context = context;
