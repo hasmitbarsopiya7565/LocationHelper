@@ -24,71 +24,43 @@ public class LocationHelper extends AppCompatActivity {
     public static Context context;
     public static double latitude,longitude;
 
-    public static double getLatitude() {
-        return latitude;
-    }
-
-    public static double getLongitude() {
-        return longitude;
-    }
-
-    public static String getAddress() {
-        return address;
-    }
-
-    public static String getCity() {
-        return city;
-    }
-
-    public static String getState() {
-        return state;
-    }
-
-    public static String getCountry() {
-        return country;
-    }
-
-    public static String getPostalCode() {
-        return postalCode;
-    }
-
-    public static String getKnownName() {
-        return knownName;
-    }
-
     public static String address,city,state,country,postalCode,knownName;
 
     public LocationHelper(Context context) {
         LocationHelper.context = context;
-        getLocation();
     }
 
+    public static class LatLong{
 
-    public static void getLocation(){
+        public void getLocation(){
 
-        GpsTracker gpsTracker = new GpsTracker(context);
-        if(gpsTracker.canGetLocation()){
-            double latitude = gpsTracker.getLatitude();
-            double longitude = gpsTracker.getLongitude();
+            GpsTracker gpsTracker = new GpsTracker(context);
+            if(gpsTracker.canGetLocation()){
+                double latitude = gpsTracker.getLatitude();
+                double longitude = gpsTracker.getLongitude();
 
-            List<Address> addresses = null;
-            Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+                List<Address> addresses = null;
+                Geocoder geocoder = new Geocoder(context, Locale.getDefault());
 
-            try {
-                addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-                address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                city = addresses.get(0).getLocality();
-                state = addresses.get(0).getAdminArea();
-                country = addresses.get(0).getCountryName();
-                postalCode = addresses.get(0).getPostalCode();
-                knownName = addresses.get(0).getFeatureName(); // Only if Available
-            } catch (IOException e) {
-                e.printStackTrace();
+                try {
+                    addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                    address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                    city = addresses.get(0).getLocality();
+                    state = addresses.get(0).getAdminArea();
+                    country = addresses.get(0).getCountryName();
+                    postalCode = addresses.get(0).getPostalCode();
+                    knownName = addresses.get(0).getFeatureName(); // Only if Available
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                gpsTracker.showSettingsAlert();
             }
-        }else{
-            gpsTracker.showSettingsAlert();
         }
     }
+
+
+
 
     /*public double[] getCurrentLatitudeLongitude(){
         double[] latitudeLongitude = new double[2];
