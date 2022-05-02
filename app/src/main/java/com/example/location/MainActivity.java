@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         tvLatitude = (TextView)findViewById(R.id.latitude);
         tvLongitude = (TextView)findViewById(R.id.longitude);
         tvAddress = (TextView)findViewById(R.id.address);
